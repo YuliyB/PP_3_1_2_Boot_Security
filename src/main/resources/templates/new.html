@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/admin/create}" th:object="${user}">
+    <label>Create user: </label><br>
+    <label for="username=">Username</label>
+    <input type="text" th:field="*{username}" id="username="/><br>
+    <label for="password=">Password</label>
+    <input type="password" th:field="*{password}" id="password="/><br>
+    <label>Roles</label><br>
+    <ul>
+        <li th:each="role:${roles}">
+            <div class="ui checkbox">
+                <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
+                <label th:text="${role.name}"></label>
+            </div>
+        </li>
+    </ul>
+    <br/>
+    <input type="submit" value="Create user!"/>
+</form>
+<div sec:authorize="isAuthenticated()">
+    <h4><a href="/logout">logout</a></h4>
+</div>
+</body>
+</html>
