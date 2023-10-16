@@ -9,17 +9,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.entities.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
-@ComponentScan("ru.kata.spring.boot_security.demo.service")
 public class AdminController {
 
     private UserService userService;
 
+    private RoleService roleService;
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @GetMapping("/admin")
@@ -36,8 +43,11 @@ public class AdminController {
 
     @GetMapping("/admin/edit")
     public String showEditUserForm(@RequestParam(value = "id") int id, Model model) {
+        if (userService.findById(id) == null) {
+            return "doesntExist";
+        }
         model.addAttribute("user", userService.findById(id));
-        model.addAttribute("roles", userService.getAllRoles());
+        model.addAttribute("roles", roleService.getAllRoles());
         return "edit";
     }
 
@@ -51,7 +61,7 @@ public class AdminController {
     public String showNewUserForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("roles", userService.getAllRoles());
+        model.addAttribute("roles", roleService.getAllRoles());
         return "new";
     }
 

@@ -7,7 +7,6 @@ import ru.kata.spring.boot_security.demo.entities.User;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
-   // boolean saveUser(User user);
 
     List<User> getAllUsers();
 
@@ -17,7 +16,7 @@ public interface UserService extends UserDetailsService {
 
     void deleteById(long id);
 
-    List<Role> getAllRoles();
+    //List<Role> getAllRoles();
 
     User updateUser(User user);
 

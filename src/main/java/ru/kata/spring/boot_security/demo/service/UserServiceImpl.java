@@ -7,12 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,19 +17,11 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
-    private RoleRepository roleRepository;
-
-
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setRoleRepository(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
     }
 
     @Lazy
@@ -60,17 +49,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean saveUser(User user) {
-        User userDB = userRepository.findByUsername(user.getUsername());
-
-        if (userDB != null) {
-            return false;
+        try{
+            loadUserByUsername(user.getUsername());
+        } catch (UsernameNotFoundException unfe) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+            return true;
         }
-
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
+        return false;
     }
-@Override
+
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -83,11 +72,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Role> getAllRoles() {
-    return roleRepository.findAll();
     }
 
     @Override
