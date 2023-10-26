@@ -21,6 +21,7 @@ public class Init {
         this.userService = userService;
         this.roleService = roleService;
     }
+
     @PostConstruct
     public void initializedDataBase() {
         Role adminRole = new Role("ROLE_ADMIN");
@@ -31,6 +32,6 @@ public class Init {
         allRoles.add(roleService.saveRole(adminRole));
         allRoles.add(userRole);
         userService.saveUser(new User("googa", "100", userRoles));
-        userService.saveUser(new User("admin", "admin",  allRoles));
+        userService.saveUser(new User("admin", "admin", allRoles));
     }
 }

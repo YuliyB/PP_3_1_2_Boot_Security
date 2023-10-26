@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean saveUser(User user) {
-        try{
+        try {
             loadUserByUsername(user.getUsername());
         } catch (UsernameNotFoundException unfe) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

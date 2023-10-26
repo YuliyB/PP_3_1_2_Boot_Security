@@ -36,7 +36,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/delete")
-    public String  deleteUser(@RequestParam(value = "id") int id) {
+    public String deleteUser(@RequestParam(value = "id") int id) {
         userService.deleteById(id);
         return "redirect:/admin";
     }
@@ -67,7 +67,7 @@ public class AdminController {
 
     @PostMapping("/admin/create")
     public String create(@ModelAttribute("user") User user) {
-        if(userService.saveUser(user)) {
+        if (userService.saveUser(user)) {
             return "redirect:/admin";
         } else {
             return "alreadyExists";
