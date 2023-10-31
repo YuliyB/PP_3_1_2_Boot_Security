@@ -31,7 +31,7 @@ public class Init {
         userRoles.add(roleService.saveRole(userRole));
         allRoles.add(roleService.saveRole(adminRole));
         allRoles.add(userRole);
-        userService.saveUser(new User("googa", "100", userRoles));
-        userService.saveUser(new User("admin", "admin", allRoles));
+        userService.saveUser(new User("googa","100",3 , "googa@mail.com", userRoles));
+        userService.saveUser(new User("admin", "admin",25, "admin@mail.com", allRoles));
     }
 }

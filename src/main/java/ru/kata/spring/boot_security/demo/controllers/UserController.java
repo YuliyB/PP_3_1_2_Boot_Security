@@ -23,8 +23,7 @@ public class UserController {
 
     @GetMapping("/user")
     public String showUserPage(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "user";
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        return "bootstrap/user";
     }
 }
