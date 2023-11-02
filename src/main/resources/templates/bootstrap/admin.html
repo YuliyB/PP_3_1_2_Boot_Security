@@ -106,8 +106,9 @@
                                                                 <label for="edit-password"><b>Password</b></label>
                                                                 <input class="form-control" id="edit-password" th:name="password" th:type="password"/>
                                                                 <br>
-                                                                <span><b>Check role</b></span>
-                                                                <select aria-label="Default select example" class="form-select" th:name="roles" required>
+                                                                <label><b>Check role</b><br>Hold Ctrl for multiple</label>
+                                                                <br>
+                                                                <select aria-label="Default select example" style="width: 300px; height:60px" class="form-select" th:name="roles" required multiple="multiple">
                                                                     <option th:each="role : ${roles}" th:value="${role.getId()}" th:switch="${role.getName()}">
                                                                         <label th:text="${role.name}"></label>
                                                                     </option>
@@ -137,39 +138,37 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
-
-                                                            <form th:method="POST" th:action="@{/admin/delete(id=${user.getId()})}">
-                                                                <div class="form-group">
-                                                                    <label for="idDelete">ID</label>
-                                                                    <input disabled="true" th:value="${user.id}" readonly type="email" class="form-control form-control-sm" id="idDelete" aria-describedby="emailHelp" placeholder="Enter ID">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="usernameDelete">Username</label>
-                                                                    <input disabled="true" th:value="${user.username}" readonly type="text" class="form-control form-control-sm" id="usernameDelete" placeholder="Username">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="ageDelete">Age</label>
-                                                                    <input disabled="true" th:value="${user.age}" type="email" class="form-control form-control-sm" id="ageDelete" aria-describedby="emailHelp" placeholder="Enter email">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="emailDelete">Email</label>
-                                                                    <input disabled="true" th:value="${user.email}" type="email" class="form-control form-control-sm" id="emailDelete" aria-describedby="emailHelp" placeholder="Enter email">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="roleDelete">Role</label>
-                                                                    <select disabled="true" multiple class="form-control form-control-sm" id="roleDelete">
-                                                                        <option th:each="role : ${user.getRoles()}" th:value="${role.getId()}" th:checked="${role.getName()}">
+                                                        <div class="modal-body text-center">
+                                                            <div style="text-align: center">
+                                                                <form th:method="POST" th:action="@{/admin/delete(id=${user.getId()})}">
+                                                                    <div class="form-group">
+                                                                        <label for="idDelete">ID</label>
+                                                                        <input disabled="true" th:value="${user.id}" readonly type="email" class="form-control form-control-sm" id="idDelete" aria-describedby="emailHelp" placeholder="Enter ID">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="usernameDelete"><b>Username</b></label>
+                                                                        <input disabled="true" th:value="${user.username}" readonly type="text" class="form-control form-control-sm" id="usernameDelete" placeholder="Username">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="ageDelete"><b>Age</b></label>
+                                                                        <input disabled="true" th:value="${user.age}" type="email" class="form-control form-control-sm" id="ageDelete" aria-describedby="emailHelp" placeholder="Enter email">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="emailDelete"><b>Email</b></label>
+                                                                        <input disabled="true" th:value="${user.email}" type="email" class="form-control form-control-sm" id="emailDelete" aria-describedby="emailHelp" placeholder="Enter email">
+                                                                    </div>
+                                                                    <label><b>Role</b></label><br>
+                                                                    <select aria-label="Default select example" style="width: 300px; height:60px" class="form-select" th:name="roles" required multiple="multiple">
+                                                                        <option th:each="role : ${user.getRoles()}" th:value="${role.getId()}" th:switch="${role.getName()}">
                                                                             <label th:text="${role.name}"></label>
                                                                         </option>
                                                                     </select>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                                </div>
-                                                            </form>
-
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
 
                                                     </div>
@@ -186,35 +185,40 @@
 
                     <!--New user tab-->
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <h3><b>New user</b></h3>
+                        <div style="background-color:#E0E0E0">
+                            <h3><b>New user</b></h3>
+                            <br>
+                        </div>
                         <div class="d-flex justify-content-center align-items-center container">
                             <div class="row">
                                 <div class="my-4">
-                                    <div class="p-3 border bg-highlight">
                                         <form th:method="POST" th:action="@{/admin/create}">
-                                            <label for="create-username"><b>Username</b></label>
-                                            <input class="form-control" id="create-username" th:name="username" th:type="text" required/>
-                                            <br>
-                                            <label for="create-age"><b>Age</b></label>
-                                            <input class="form-control" id="create-age" th:name="age" th:type="number"/>
-                                            <br>
-                                            <label for="create-email"><b>Email</b></label>
-                                            <input class="form-control" id="create-email" th:name="email" th:type="text" required/>
-                                            <br>
-                                            <label for="create-password"><b>Password</b></label>
-                                            <input class="form-control" id="create-password" th:name="password" th:type="password" placeholder="Password" required/>
-                                            <br>
-                                            <span><b>Role</b></span>
-                                            <select aria-label="Default select example" class="form-select" th:name="roles" required>
-                                                <option th:each="role : ${roles}" th:value="${role.getId()}" th:switch="${role.getName()}">
-                                                    <label th:text="${role.name}"></label>
-                                                </option>
-                                            </select>
-                                            <br><br>
-                                            <button class="btn btn-success btn-lg" th:type="submit" value="Add user">Add user
-                                            </button>
+                                            <div style="text-align: center">
+                                                <label for="create-username"><b>Username</b></label>
+                                                <input class="form-control" id="create-username" th:name="username" th:type="text" required/>
+                                                <br>
+                                                <label for="create-age"><b>Age</b></label>
+                                                <input class="form-control" id="create-age" th:name="age" th:type="number"/>
+                                                <br>
+                                                <label for="create-email"><b>Email</b></label>
+                                                <input class="form-control" id="create-email" th:name="email" th:type="text" required/>
+                                                <br>
+                                                <label for="create-password"><b>Password</b></label>
+                                                <input class="form-control" id="create-password" th:name="password" th:type="password" placeholder="Password" required/>
+                                                <br>
+                                                <label><b>Role</b><br>Hold Ctrl to select multiple
+                                                </label>
+                                                <br>
+                                                <select  aria-label="Multiple select example" style="width: 300px; height:60px" class="form-select" th:name="roles" multiple="multiple" required>
+                                                    <option th:each="role : ${roles}" th:value="${role.getId()}" th:switch="${role.getName()}">
+                                                        <label th:text="${role.name}"></label>
+                                                    </option>
+                                                </select>
+                                                <br><br>
+                                                <button class="btn btn-success btn-lg" th:type="submit" value="Add user">Add user
+                                                </button>
+                                            </div>
                                         </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
