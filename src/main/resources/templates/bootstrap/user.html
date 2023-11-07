@@ -13,7 +13,8 @@
 <body class="bg-light">
 
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand text-white" th:text="${user.username} + ' with Role: ' + ${user.roles}">Navbar</a>
+    <div id="basicInfo">
+    </div>
     <form class="form-inline">
         <a class="text-light" href="/logout">Logout</a>
     </form>
@@ -51,14 +52,7 @@
                                         <th scope="col">Role</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row"><p th:text="${user.getId()}">VALUE</p></th>
-                                        <td><p th:text="${user.getUsername()}">VALUE</p></td>
-                                        <td><p th:text="${user.getAge()}">VALUE</p></td>
-                                        <td><p th:text="${user.getEmail()}">VALUE</p></td>
-                                        <td><p th:text="${user.getRoles()}">VALUE</p></td>
-                                    </tr>
+                                    <tbody id="userTableInfo">
                                     </tbody>
                                 </table>
                             </blockquote>
@@ -73,7 +67,7 @@
     </div>
 </div>
 
-
+<script type="text/javascript" src="/user.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

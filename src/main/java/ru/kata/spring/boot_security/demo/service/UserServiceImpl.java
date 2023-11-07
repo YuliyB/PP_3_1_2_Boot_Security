@@ -75,11 +75,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        User userDB = userRepository.findById(user.getId()).orElse(new User());
-        userDB.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    public boolean updateUser(User user) {
+        User userDB = userRepository.findById(user.getId()).orElse(null);
+        if (userDB == null) {
+            return false;
+        }
+        if (!user.getPassword().isEmpty()) {
+            userDB.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
+        userDB.setAge(user.getAge());
+        userDB.setEmail(user.getEmail());
         userDB.setUsername(user.getUsername());
         userDB.setRoles(user.getRoles());
-        return userRepository.save(userDB);
+        userRepository.save(userDB);
+        return true;
     }
 }
